@@ -19,7 +19,7 @@ class Application
 	public Response $response;
 	public Router $router;
 	public Controller $controller;
-	
+
 	public function __construct(string $path)
 	{
 		self::$rootDir = $path;

@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Core\Controller;
+use App\Core\View;
 
 class AdminController extends Controller
 {
+	public string $layout = 'admin';
+
 	public function dashboard()
 	{
-		echo 'Admin dashboarddd';
+		return View::make('admin/dashboard', [
+			'title' => 'Admin Dashboard'
+		]);
 	}
 
 	public function login()
