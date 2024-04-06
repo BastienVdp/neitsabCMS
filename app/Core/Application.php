@@ -5,6 +5,7 @@ namespace App\Core;
 use App\Core\Config;
 use App\Core\Router;
 use App\Core\Database;
+use App\Core\Controller;
 
 class Application 
 {
@@ -17,6 +18,7 @@ class Application
 	public Request $request;
 	public Response $response;
 	public Router $router;
+	public Controller $controller;
 	
 	public function __construct(string $path)
 	{

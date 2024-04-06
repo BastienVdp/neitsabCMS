@@ -47,6 +47,11 @@ class Request
         return $position ? substr($path, 0, $position) : $path; 
     }
 
+    public function startsWith($path): bool
+    {
+        return strpos($this->getPath(), $path) === 0;
+    }
+
     /**
 	 * 
      * The function returns the HTTP request method in lowercase.
