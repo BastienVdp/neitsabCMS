@@ -16,3 +16,4 @@ require_once __DIR__ . '/../utils/functions.php';
 
 $app = new Application(dirname(__DIR__));
 
+$app->run();
