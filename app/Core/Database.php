@@ -15,15 +15,16 @@ class Database
     {
         $capsule = new Capsule;
 
-        // Ajouter les connexions définies dans le fichier de configuration
-        foreach ($config['connections'] as $connectionName => $connectionConfig) {
-            $capsule->addConnection($connectionConfig, $connectionName);
-        }
+		foreach ($config['connections'] as $connectionName => $connectionConfig) {
+			$capsule->addConnection($connectionConfig, $connectionName === $config['default'] ? "default" : $connectionName);
+		}
+		
+		// Définir la connexion par défaut
+		$capsule->setAsGlobal();
+		
+		// Démarrer Eloquent
+		$capsule->bootEloquent();
 
-        // Définir la connexion par défaut
-        $capsule->setAsGlobal();
 
-        // Démarrer Eloquent
-        $capsule->bootEloquent();
     }
 }
