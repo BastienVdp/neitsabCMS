@@ -2,26 +2,28 @@
 
 namespace App\Core;
 
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 class Database
 {
-	public \PDO $pdo;
+    public function __construct(array $config)
+    {
+        $this->initEloquent($config);
+    }
 
-	public function __construct(array $config)
-	{
-		$this->handleConnexion($config['default'], $config['connections']);
-	}
+    private function initEloquent(array $config)
+    {
+        $capsule = new Capsule;
 
-	private function handleConnexion(string $driver, array $config)
-	{
-		switch($driver)
-		{
-			case 'mysql':
-				$connexion = $config['mysql'];
-				$dsn = "mysql:host={$connexion['host']};dbname={$connexion['database']};charset={$connexion['charset']}";
-				$this->pdo = new \PDO($dsn, $connexion['username'], $connexion['password']);
-				$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-				$this->pdo->exec("USE " . $connexion['database']);
-				break;
-		}
-	}
+        // Ajouter les connexions définies dans le fichier de configuration
+        foreach ($config['connections'] as $connectionName => $connectionConfig) {
+            $capsule->addConnection($connectionConfig, $connectionName);
+        }
+
+        // Définir la connexion par défaut
+        $capsule->setAsGlobal();
+
+        // Démarrer Eloquent
+        $capsule->bootEloquent();
+    }
 }
