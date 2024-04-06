@@ -19,7 +19,6 @@ class Config
 			$this->settings[$key] = require Application::$rootDir . "/config/$file";
 		}
 
-		dd($this->settings);
 	}
 
 	public function get(string $key, $default = null)
